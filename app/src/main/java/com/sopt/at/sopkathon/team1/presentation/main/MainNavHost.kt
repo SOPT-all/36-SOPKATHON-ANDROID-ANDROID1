@@ -12,6 +12,7 @@ import androidx.navigation.toRoute
 import com.sopt.at.sopkathon.team1.core.navigation.Route
 import com.sopt.at.sopkathon.team1.presentation.home.HomeScreen
 import com.sopt.at.sopkathon.team1.presentation.level.LevelScreen
+import com.sopt.at.sopkathon.team1.presentation.map.MapScreen
 import com.sopt.at.sopkathon.team1.presentation.productdetail.ProductDetailScreen
 import com.sopt.at.sopkathon.team1.presentation.productlist.ProductListScreen
 
@@ -34,6 +35,9 @@ fun MainNavHost(
                 modifier = defaultModifier,
                 onNavigateToProductList = { category ->
                     navigator.navigate(Route.ProductList(category))
+                },
+                onNavigateToMap = {
+                    navigator.navigate(Route.Map)
                 }
             )
         }
@@ -49,6 +53,17 @@ fun MainNavHost(
         }
         composable<Route.Level>{
             LevelScreen(
+                modifier = defaultModifier
+            )
+        }
+        composable<Route.Map> {
+            MapScreen(
+                onNavigateToProductList = { product ->
+                    navigator.navigate(Route.ProductList(product))
+                },
+                onNavigateToHome = {
+                    navigator.navigate(Route.Home)
+                },
                 modifier = defaultModifier
             )
         }

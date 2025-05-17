@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,6 +50,7 @@ import com.sopt.at.sopkathon.team1.core.component.TopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalTypographyProvider
 import com.sopt.at.sopkathon.team1.core.extension.toDecimalFormat
+import com.sopt.at.sopkathon.team1.data.dto.type.RegionType
 
 @Composable
 fun ProductDetailScreen(
@@ -68,7 +70,7 @@ fun ProductDetailScreen(
     var isShowDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.loadProductDetail(1)
+        viewModel.loadProductDetail(productId)
     }
 
     Box(
@@ -90,8 +92,8 @@ fun ProductDetailScreen(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1.2f)
-                    .height(300.dp),
+                    .height(300.dp)
+                    .clip(RoundedCornerShape(bottomEnd = 32.dp, bottomStart = 32.dp)),
                 contentScale = ContentScale.Crop
             )
 
@@ -105,7 +107,25 @@ fun ProductDetailScreen(
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = if (state.seller != null && state.region != null) {
-                            "${state.seller} · ${state.region}"
+                            val convertedRegion = when(state.region) {
+                                RegionType.GONGJU.name -> RegionType.GONGJU.regionName
+                                RegionType.ASAN.name -> RegionType.ASAN.regionName
+                                RegionType.CHEONAN.name -> RegionType.CHEONAN.regionName
+                                RegionType.DANGJIN.name -> RegionType.DANGJIN.regionName
+                                RegionType.SEOSAN.name -> RegionType.SEOSAN.regionName
+                                RegionType.BORYEONG.name -> RegionType.BORYEONG.regionName
+                                RegionType.GYERYONG.name -> RegionType.GYERYONG.regionName
+                                RegionType.NONSAN.name -> RegionType.NONSAN.regionName
+                                RegionType.TAEAN.name -> RegionType.TAEAN.regionName
+                                RegionType.HONGSEONG.name -> RegionType.HONGSEONG.regionName
+                                RegionType.YESAN.name -> RegionType.YESAN.regionName
+                                RegionType.CHEONGYANG.name -> RegionType.CHEONGYANG.regionName
+                                RegionType.BUYEO.name -> RegionType.BUYEO.regionName
+                                RegionType.SEOCHEON.name -> RegionType.SEOCHEON.regionName
+                                RegionType.GEUMSAN.name -> RegionType.GEUMSAN.regionName
+                                else -> ""
+                            }
+                            "${state.seller} · ${convertedRegion}"
                         } else {
                             state.seller ?: state.region ?: ""
                         },
