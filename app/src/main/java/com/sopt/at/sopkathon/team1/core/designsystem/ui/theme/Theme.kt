@@ -50,25 +50,3 @@ fun SopkatonTheme(
         )
     }
 }
-
-@Composable
-fun TodomateTheme(
-    content: @Composable () -> Unit
-) {
-    ProvideColorsAndTypography(
-        colors = defaultSopkatonColors,
-        typography = defaultSopkatonTypography
-    ) {
-        val view = LocalView.current
-        if (!view.isInEditMode) {
-            SideEffect {
-                (view.context as Activity).window.run {
-                    WindowCompat.getInsetsController(this, view).isAppearanceLightStatusBars = false
-                }
-            }
-        }
-        MaterialTheme(
-            content = content
-        )
-    }
-}
