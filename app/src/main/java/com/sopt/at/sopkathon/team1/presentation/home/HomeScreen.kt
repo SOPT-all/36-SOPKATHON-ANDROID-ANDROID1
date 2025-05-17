@@ -66,10 +66,10 @@ fun Market(
     ) {
         TopBar()
         LevelComponent(
-            nickname = userInfo.name,
-            level = userInfo.level,
-            maxPrice = userInfo.maxPrice,
-            totalPrice = userInfo.totalPrice,
+            nickname = userInfo.name.toString(),
+            level = userInfo.level ?: 0,
+            maxPrice = userInfo.maxPrice ?: 0,
+            totalPrice = userInfo.totalPrice ?: 0,
         )
         Surface(
             color = LocalSopkatonColorsProvider.current.GrayBackground,

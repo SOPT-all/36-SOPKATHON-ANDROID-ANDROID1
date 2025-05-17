@@ -1,8 +1,7 @@
 package com.sopt.at.sopkathon.team1.data.service
 
-import com.sopt.at.sopkathon.team1.data.dto.base.DummyBaseResponse
+import com.sopt.at.sopkathon.team1.data.dto.base.BaseResponse
 import com.sopt.at.sopkathon.team1.data.dto.request.DummyServiceRequest
-import com.sopt.at.sopkathon.team1.data.dto.request.UserInfoRequest
 import com.sopt.at.sopkathon.team1.data.dto.response.DummyServiceResponse
 import com.sopt.at.sopkathon.team1.data.dto.response.UserInfoResponse
 import retrofit2.http.Body
@@ -15,10 +14,10 @@ interface Team1Service {
     @POST("/api/v1/servie")
     suspend fun postServiceData(
         @Body request: DummyServiceRequest
-    ): DummyBaseResponse<DummyServiceResponse>
+    ): BaseResponse<DummyServiceResponse>
 
     @GET("/api/v1/user/{userId}")
     suspend fun getUserInfo(
         @Path("userId") request: Long
-    ): DummyBaseResponse<UserInfoResponse>
+    ): BaseResponse<UserInfoResponse>
 }

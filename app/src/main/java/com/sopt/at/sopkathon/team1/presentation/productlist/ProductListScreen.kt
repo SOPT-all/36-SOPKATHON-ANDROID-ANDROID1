@@ -200,7 +200,7 @@ fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
                 .padding(vertical = 4.dp)
         ) {
             Text(
-                text = productInfo.title,
+                text = productInfo.title ?: "",
                 style = LocalTypographyProvider.current.title_sb_14,
                 color = Gray900,
                 maxLines = 2
@@ -212,7 +212,7 @@ fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = productInfo.region,
+                    text = productInfo.region ?: "",
                     style = LocalTypographyProvider.current.body_r_12,
                     color = Gray600
                 )
@@ -220,7 +220,7 @@ fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
                 Spacer(Modifier.weight(1f))
 
                 Text(
-                    text = "${productInfo.price.toDecimalFormat()}원",
+                    text = "${productInfo.price?.toDecimalFormat()}원",
                     style = LocalTypographyProvider.current.head_eb_16,
                     color = Gray900
                 )
