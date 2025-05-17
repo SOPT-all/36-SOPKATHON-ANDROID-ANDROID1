@@ -7,7 +7,7 @@ object KeyStorage {
         "노비",
         "평민",
         "귀족",
-        "공주"
+        "왕족"
     )
     val LEVEL_IMG_LIST = listOf(
         R.drawable.img_home_level,
