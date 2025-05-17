@@ -3,14 +3,14 @@ package com.sopt.at.sopkathon.team1.core.navigation
 import kotlinx.serialization.Serializable
 sealed interface Route {
     @Serializable
-    data class MyPage(
-        val userId: Long,
-    ) : Route
-}
+    data object Home : Route
 
-sealed interface MainTabRoute : Route {
     @Serializable
-    data object Home : MainTabRoute
+    data object ProductList : Route
+
     @Serializable
-    data object Setting : MainTabRoute
+    data object ProductDetail : Route
+
+    @Serializable
+    data object Level : Route
 }

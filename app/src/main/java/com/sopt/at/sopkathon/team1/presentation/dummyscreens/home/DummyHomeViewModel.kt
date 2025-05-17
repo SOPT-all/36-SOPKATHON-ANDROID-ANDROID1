@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class DummyHomeViewModel @Inject constructor(
     private val team1RepositoryImpl: Team1RepositoryImpl
 ) : ViewModel() {
     private val _userId = MutableStateFlow(0L)

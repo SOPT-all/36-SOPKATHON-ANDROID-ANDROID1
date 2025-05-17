@@ -8,23 +8,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.sopt.at.sopkathon.team1.presentation.main.component.MainBottomBar
-import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun MainScreen(
     navigator: MainNavigator = rememberMainNavigator()
 ) {
     Scaffold(
-        bottomBar = {
-            MainBottomBar(
-                visible = navigator.showBottomBar(),
-                tabs = MainTab.entries.toImmutableList(),
-                currentTab = navigator.currentTab,
-                onTabSelected = navigator::navigateBottomTab,
-            )
-
-        },
         modifier = Modifier
             .background(Color.White)
             .systemBarsPadding()

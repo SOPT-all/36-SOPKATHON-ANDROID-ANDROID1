@@ -18,10 +18,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sopt.at.sopkathon.team1.core.extension.noRippleClickable
 
 @Composable
-fun HomeScreen(
+fun DummyHomeScreen(
     onNavigateToMyPage: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: DummyHomeViewModel = hiltViewModel()
 ) {
     val userId by viewModel.userId.collectAsState()
 
