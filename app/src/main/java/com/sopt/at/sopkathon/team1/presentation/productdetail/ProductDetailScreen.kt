@@ -10,4 +10,5 @@ fun ProductDetailScreen(
     modifier: Modifier = Modifier,
     viewModel: ProductDetailViewModel = hiltViewModel()
 ) {
+
 }
