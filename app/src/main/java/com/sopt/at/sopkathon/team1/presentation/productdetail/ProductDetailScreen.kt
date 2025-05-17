@@ -1,5 +1,6 @@
 package com.sopt.at.sopkathon.team1.presentation.productdetail
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,10 +22,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -34,6 +41,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.sopt.at.sopkathon.team1.R
 import com.sopt.at.sopkathon.team1.core.component.CustomButton
+import com.sopt.at.sopkathon.team1.core.component.ListViewTopBar
+import com.sopt.at.sopkathon.team1.core.component.ProductBottomSheet
 import com.sopt.at.sopkathon.team1.core.component.TopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalTypographyProvider
@@ -41,13 +50,19 @@ import com.sopt.at.sopkathon.team1.core.extension.toDecimalFormat
 
 @Composable
 fun ProductDetailScreen(
-    onNavigateToLevel: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProductDetailViewModel = hiltViewModel()
 ) {
+    val count by viewModel.count.collectAsState()
+
     val colors = LocalSopkatonColorsProvider.current
     val typography = LocalTypographyProvider.current
     val state by viewModel.uiState.collectAsState()
+    var isVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadProductDetail(1)
+    }
 
     Box(
         modifier = modifier
@@ -58,9 +73,9 @@ fun ProductDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 80.dp)
+                .padding(bottom = 160.dp)
         ) {
-            TopBar()
+            ListViewTopBar()
 
             Image(
                 painter = rememberAsyncImagePainter(state.image ?: ""),
@@ -98,7 +113,7 @@ fun ProductDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "${state.price?.toDecimalFormat()}원",
+                    text = "${(state.price ?: 0).toDecimalFormat()}원",
                     style = typography.head_eb_28,
                     color = colors.Primary900
                 )
@@ -113,11 +128,20 @@ fun ProductDetailScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-//                DeliveryInfo(infoList = state.storage)
+               DeliveryInfo(infoList = listOf(
+                   "배송방법    무료배송",
+                   "제주지역    3,000원",
+                   "도서산간    3,000원"
+               ))
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-//                FeatureSection(features = state.features)
+                FeatureSection(features = listOf(
+                    Pair("상품 특징", state.feature.orEmpty()),
+                    Pair("맛", state.flavor.orEmpty()),
+                    Pair("크기와 모양", state.shape.orEmpty()),
+                    Pair("보관 방법", state.storage.orEmpty())
+                ))
             }
         }
 
@@ -125,10 +149,36 @@ fun ProductDetailScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
-                .padding(16.dp),
+                .padding(16.dp)
+                .navigationBarsPadding(),
             text = "구매하기",
-            onClick = onNavigateToLevel
+            onClick = {
+                isVisible = true
+            }
         )
+        if(isVisible){
+            ProductBottomSheet(
+                productName = state.title.orEmpty(),
+                quantity = count,
+                onQuantityChange = { count ->
+                    Log.d("onQuantityChange", count.toString())
+                    viewModel.updateCount(count)
+                },
+                onDismiss = {
+                    isVisible = !isVisible
+                },
+                onPurchase = {
+                    viewModel.postProductDetail(
+                        userId = 1,
+                        productId = 1,
+                        count = count,
+                        action = {
+                            //navigation
+                        }
+                    )
+                }
+            )
+        }
     }
 }
 
@@ -154,7 +204,9 @@ fun DeliveryInfo(infoList: List<String>) {
 }
 
 @Composable
-fun FeatureSection(features: List<Pair<String, String>>) {
+fun FeatureSection(
+    features: List<Pair<String, String>>
+) {
     val colors = LocalSopkatonColorsProvider.current
 
     Column(
@@ -194,13 +246,5 @@ fun FeatureItem(title: String, content: String) {
             style = typography.body_r_14,
             color = colors.Gray800
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProductDetailScreenPreview() {
-    MaterialTheme {
-        ProductDetailScreen(onNavigateToLevel = {})
     }
 }

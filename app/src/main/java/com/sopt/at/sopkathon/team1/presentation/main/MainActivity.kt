@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.SopkatonTheme
+import com.sopt.at.sopkathon.team1.presentation.productdetail.ProductDetailScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,7 +15,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SopkatonTheme {
-                MainScreen()
+//                MainScreen()
+                ProductDetailScreen()
             }
         }
     }
