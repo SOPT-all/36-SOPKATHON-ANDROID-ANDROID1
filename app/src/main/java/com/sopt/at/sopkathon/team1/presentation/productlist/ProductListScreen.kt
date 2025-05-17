@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -85,15 +86,16 @@ fun ProductListScreen(
 
     viewModel.getProductList(startCategory)
 
-    Scaffold(modifier = modifier.background(color = GrayBackground),
-        topBar = {
-            ListViewTopBar(Modifier.background(GrayBackground))
-    }) { innerPadding ->
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = GrayBackground)
+            .statusBarsPadding()
+    ) {
+        ListViewTopBar(Modifier.background(GrayBackground))
+
         Column (
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(color = GrayBackground)
         ) {
             LazyRow(
                 modifier = Modifier
@@ -105,7 +107,7 @@ fun ProductListScreen(
                 items(categoryList.size) { index ->
                     CategoryItemLayout(categoryList[index], selectedItem) {
                         selectedItem = it
-                        viewModel.getProductList(selectedItem.name)
+                        viewModel.getProductList(selectedItem.categoryName)
                     }
                 }
             }
