@@ -9,8 +9,5 @@ sealed interface Route {
     data object ProductList : Route
 
     @Serializable
-    data object ProductDetail : Route
-
-    @Serializable
     data object Level : Route
 }
