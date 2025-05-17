@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">team1</string>
+    <string name="app_name">Team1</string>
     <string name="title_activity_main">MainActivity</string>
 
     <!-- Dummy Bottom Navigation Bar -->
