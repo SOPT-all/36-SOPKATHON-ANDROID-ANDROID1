@@ -6,7 +6,9 @@ sealed interface Route {
     data object Home : Route
 
     @Serializable
-    data object ProductList : Route
+    data class ProductList(
+        val category: String
+    ) : Route
 
     @Serializable
     data object Level : Route
