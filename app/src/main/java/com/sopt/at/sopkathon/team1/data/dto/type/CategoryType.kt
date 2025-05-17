@@ -5,7 +5,7 @@ enum class CategoryType(val categoryName: String) {
     APPLE("사과"),
     CHESTNUT("알밤"),
     WATERMELON("수박"),
-    SHIITAKE("표고 버섯"),
+    SHIITAKE("버섯"),
     CHILI("고추"),
     RICE("쌀")
 }

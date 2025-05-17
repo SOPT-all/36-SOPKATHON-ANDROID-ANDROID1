@@ -1,9 +1,7 @@
 package com.sopt.at.sopkathon.team1.presentation.productlist
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.runtime.setValue
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,19 +13,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -56,6 +52,7 @@ import com.sopt.at.sopkathon.team1.data.dto.type.CategoryType
 @Composable
 fun ProductListScreen(
     startCategory: String,
+    onNavigateToProductDetail: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
@@ -87,10 +84,10 @@ fun ProductListScreen(
     viewModel.getProductList(startCategory)
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(color = GrayBackground)
-            .statusBarsPadding()
+            .systemBarsPadding()
     ) {
         ListViewTopBar(Modifier.background(GrayBackground))
 
@@ -121,7 +118,7 @@ fun ProductListScreen(
             ) {
                 items(productList.size) { index ->
                     ProductItemLayout(productList[index]) {
-
+                        onNavigateToProductDetail(it.toLong())
                     }
                 }
             }
@@ -162,7 +159,7 @@ fun CategoryItemLayout(categoryType: CategoryType, selectedCategory: CategoryTyp
 }
 
 @Composable
-fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
+fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (Long) -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
 
     Row(
@@ -178,7 +175,7 @@ fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
                     isPressed = it
                 },
                 onClick = {
-
+                    itemOnClick((productInfo.id ?: 0L).toLong())
                 }
             ),
     ) {

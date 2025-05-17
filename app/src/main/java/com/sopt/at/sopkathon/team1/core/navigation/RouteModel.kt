@@ -11,5 +11,10 @@ sealed interface Route {
     ) : Route
 
     @Serializable
+    data class ProductDetail(
+        val productId: Long
+    ) : Route
+
+    @Serializable
     data object Level : Route
 }

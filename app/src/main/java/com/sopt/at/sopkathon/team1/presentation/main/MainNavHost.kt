@@ -3,7 +3,6 @@ package com.sopt.at.sopkathon.team1.presentation.main
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,8 +20,7 @@ fun MainNavHost(
     navigator: MainNavigator,
     modifier: Modifier = Modifier
 ) {
-    val homeModifier = Modifier.padding(0.dp)
-    val defaultModifier = modifier.systemBarsPadding()
+    val defaultModifier = Modifier.padding(0.dp)
     NavHost(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
@@ -33,7 +31,7 @@ fun MainNavHost(
     ) {
         composable<Route.Home>{
             HomeScreen(
-                modifier = homeModifier,
+                modifier = defaultModifier,
                 onNavigateToProductList = { category ->
                     navigator.navigate(Route.ProductList(category))
                 }
@@ -44,11 +42,24 @@ fun MainNavHost(
             ProductListScreen(
                 startCategory = category,
                 modifier = defaultModifier,
+                onNavigateToProductDetail = { id ->
+                    navigator.navigate(Route.ProductDetail(id))
+                }
             )
         }
         composable<Route.Level>{
             LevelScreen(
                 modifier = defaultModifier
+            )
+        }
+        composable<Route.ProductDetail> { navBackStackEntry ->
+            val productId = navBackStackEntry.toRoute<Route.ProductDetail>().productId
+            ProductDetailScreen(
+                modifier = defaultModifier,
+                productId = productId,
+                onNavigateToHome = {
+                    navigator.navigate(Route.Home, navigator.clearStackOptions)
+                }
             )
         }
     }

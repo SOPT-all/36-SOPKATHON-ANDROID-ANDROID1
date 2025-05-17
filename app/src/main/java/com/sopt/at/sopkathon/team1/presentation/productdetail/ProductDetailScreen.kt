@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,6 +52,8 @@ import com.sopt.at.sopkathon.team1.core.extension.toDecimalFormat
 @Composable
 fun ProductDetailScreen(
     modifier: Modifier = Modifier,
+    productId: Long = 0L,
+    onNavigateToHome: () -> Unit,
     viewModel: ProductDetailViewModel = hiltViewModel()
 ) {
     val count by viewModel.count.collectAsState()
@@ -68,12 +71,13 @@ fun ProductDetailScreen(
         modifier = modifier
             .fillMaxSize()
             .background(colors.GrayBackground)
+            .systemBarsPadding()
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 160.dp)
+                .padding(bottom = 100.dp)
         ) {
             ListViewTopBar()
 
@@ -174,10 +178,10 @@ fun ProductDetailScreen(
                 onPurchase = {
                     viewModel.postProductDetail(
                         userId = 1,
-                        productId = 1,
+                        productId = productId,
                         count = count,
                         action = {
-                            //navigation
+                            onNavigateToHome()
                         }
                     )
                 }
