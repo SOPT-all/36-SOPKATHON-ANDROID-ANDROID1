@@ -85,7 +85,7 @@ fun ProductDetailScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 100.dp)
         ) {
-            ListViewTopBar()
+            ListViewTopBar(titleText = state.seller)
 
             Image(
                 painter = rememberAsyncImagePainter(state.image ?: ""),

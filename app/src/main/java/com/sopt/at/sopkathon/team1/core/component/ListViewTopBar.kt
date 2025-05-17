@@ -21,7 +21,8 @@ import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.defaultSopkatonTyp
 
 @Composable
 fun ListViewTopBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    titleText: String? = null
 ) {
     Row(
         modifier = modifier
@@ -37,7 +38,7 @@ fun ListViewTopBar(
             modifier = Modifier.size(32.dp)
         )
         Text(
-            text = "서비스 이름",
+            text = titleText ?: "쪼매못났슈",
             style = defaultSopkatonTypography.title_sb_18.merge(
                 defaultSopkatonColors.Primary500
             ),
