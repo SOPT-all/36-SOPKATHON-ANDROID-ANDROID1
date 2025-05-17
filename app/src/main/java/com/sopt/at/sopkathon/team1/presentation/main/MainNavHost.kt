@@ -41,17 +41,6 @@ fun MainNavHost(
         composable<Route.ProductList>{
             ProductListScreen(
                 modifier = defaultModifier,
-                onNavigateToProductDetail = {
-                    navigator.navigate(Route.ProductDetail)
-                }
-            )
-        }
-        composable<Route.ProductDetail>{
-            ProductDetailScreen(
-                modifier = defaultModifier,
-                onNavigateToLevel = {
-                    navigator.navigate(Route.Level)
-                }
             )
         }
         composable<Route.Level>{

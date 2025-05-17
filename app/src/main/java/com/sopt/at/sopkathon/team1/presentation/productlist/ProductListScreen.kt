@@ -53,7 +53,6 @@ import com.sopt.at.sopkathon.team1.data.dto.type.CategoryType
 
 @Composable
 fun ProductListScreen(
-    onNavigateToProductDetail: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
