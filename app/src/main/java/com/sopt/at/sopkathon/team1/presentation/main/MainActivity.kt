@@ -15,8 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SopkatonTheme {
-//                MainScreen()
-                ProductDetailScreen()
+                MainScreen()
             }
         }
     }
