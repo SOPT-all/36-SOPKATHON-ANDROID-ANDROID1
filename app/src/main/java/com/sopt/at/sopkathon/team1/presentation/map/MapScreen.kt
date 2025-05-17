@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
@@ -28,13 +30,17 @@ import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColor
 
 @Composable
 fun MapScreen(
-    onNavigateToProductDetail: (String) -> Unit,
+    onNavigateToProductList: (String) -> Unit,
+    onNavigateToHome: () -> Unit,
     modifier: Modifier = Modifier,
 ){
     Surface (
-        color = LocalSopkatonColorsProvider.current.Primary500
+        color = LocalSopkatonColorsProvider.current.Primary500,
+        modifier = modifier
     ) {
-        Column {
+        Column (
+            modifier = modifier.systemBarsPadding()
+        ){
             TopBar()
             Box(
                 modifier = Modifier.fillMaxSize()
@@ -51,10 +57,12 @@ fun MapScreen(
                     contentDescription = "딸기",
                     modifier = Modifier.size(48.dp)
                         .absoluteOffset(x = 240.dp, y = 376.dp)
-                        .clickable {  }
+                        .clickable {
+                            onNavigateToProductList("딸기")
+                        }
                 )
                 FloatingActionButton(
-                    onClick = {},
+                    onClick = { onNavigateToHome()},
                     shape = CircleShape,
                     containerColor = LocalSopkatonColorsProvider.current.White,
                     contentColor = LocalSopkatonColorsProvider.current.Primary500,
@@ -77,5 +85,5 @@ fun MapScreen(
 @Composable
 @Preview
 fun ShowMapScreen(){
-    MapScreen({})
+    MapScreen({}, {})
 }

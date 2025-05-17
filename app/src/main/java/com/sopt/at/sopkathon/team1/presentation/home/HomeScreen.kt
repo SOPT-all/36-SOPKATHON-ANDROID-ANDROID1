@@ -30,9 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -46,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.at.sopkathon.team1.R
-import com.sopt.at.sopkathon.team1.core.component.FinishPurchaseDialog
 import com.sopt.at.sopkathon.team1.core.component.TopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Gray900
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
@@ -57,14 +53,15 @@ import com.sopt.at.sopkathon.team1.presentation.home.component.LevelComponent
 @Composable
 fun HomeScreen(
     onNavigateToProductList: (String) -> Unit,
+    onNavigateToMap: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold (
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  },
+                onClick = { onNavigateToMap() },
                 containerColor = LocalSopkatonColorsProvider.current.Primary500,
-                contentColor = Color.White,
+                contentColor = Color.Unspecified,
                 shape = CircleShape,
                 modifier = Modifier
                     .shadow(
@@ -75,13 +72,12 @@ fun HomeScreen(
                     .size(48.dp)
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.img_map),
-                    contentDescription = "지도 보기"
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_map),
+                    contentDescription = "지도 보기",
                 )
             }
         }
     ) { innerPadding ->
-        innerPadding
         Market(
             onNavigateToProductList = onNavigateToProductList,
             modifier = modifier
@@ -230,6 +226,7 @@ fun ItemCard(
 @Composable
 fun ShowHomeScreen(){
     HomeScreen(
-        onNavigateToProductList = {}
+        onNavigateToProductList = {},
+        onNavigateToMap = {}
     )
 }
