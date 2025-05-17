@@ -2,8 +2,11 @@ package com.sopt.at.sopkathon.team1.presentation.main
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sopt.at.sopkathon.team1.core.navigation.Route
@@ -17,6 +20,8 @@ fun MainNavHost(
     navigator: MainNavigator,
     modifier: Modifier = Modifier
 ) {
+    val homeModifier = Modifier.padding(0.dp)
+    val defaultModifier = modifier.systemBarsPadding()
     NavHost(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
@@ -27,7 +32,7 @@ fun MainNavHost(
     ) {
         composable<Route.Home>{
             HomeScreen(
-                modifier = modifier,
+                modifier = homeModifier,
                 onNavigateToProductList = {
                     navigator.navigate(Route.ProductList)
                 }
@@ -35,7 +40,7 @@ fun MainNavHost(
         }
         composable<Route.ProductList>{
             ProductListScreen(
-                modifier = modifier,
+                modifier = defaultModifier,
                 onNavigateToProductDetail = {
                     navigator.navigate(Route.ProductDetail)
                 }
@@ -43,7 +48,7 @@ fun MainNavHost(
         }
         composable<Route.ProductDetail>{
             ProductDetailScreen(
-                modifier = modifier,
+                modifier = defaultModifier,
                 onNavigateToLevel = {
                     navigator.navigate(Route.Level)
                 }
@@ -51,7 +56,7 @@ fun MainNavHost(
         }
         composable<Route.Level>{
             LevelScreen(
-                modifier = modifier
+                modifier = defaultModifier
             )
         }
     }
