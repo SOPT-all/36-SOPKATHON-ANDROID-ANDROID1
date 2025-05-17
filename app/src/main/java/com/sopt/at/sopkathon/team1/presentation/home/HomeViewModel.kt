@@ -87,10 +87,6 @@ class HomeViewModel @Inject constructor(
             }.onFailure {
                 it.printStackTrace()
             }
-
-            team1RepositoryImpl.getProductList("")
-            team1RepositoryImpl.getProductInfo(0)
-            team1RepositoryImpl.purchaseProduce(PurchaseProductRequest(0))
         }
     }
 }

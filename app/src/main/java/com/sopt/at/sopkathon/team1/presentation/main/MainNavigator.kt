@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.sopt.at.sopkathon.team1.core.navigation.Route
 
 class MainNavigator(
@@ -15,6 +16,13 @@ class MainNavigator(
     private val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
+
+    val clearStackOptions = navOptions {
+        popUpTo(0) {
+            inclusive = true
+        }
+        launchSingleTop = true
+    }
 
     val startDestination = Route.Home
 

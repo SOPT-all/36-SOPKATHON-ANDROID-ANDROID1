@@ -1,5 +1,6 @@
 package com.sopt.at.sopkathon.team1.core.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,7 +23,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +47,6 @@ fun ProductBottomSheet(
     quantity: Int,
     onQuantityChange: (Int) -> Unit,
     onDismiss: () -> Unit,
-    onRemoveItem: () -> Unit,
     onPurchase: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -77,10 +75,11 @@ fun ProductBottomSheet(
                             color = colors.Gray800
                         )
                         Spacer(modifier = Modifier.height(6.dp))
-                        IconButton(onClick = onRemoveItem, modifier = Modifier.size(24.dp)) {
+                        IconButton(onClick = onDismiss, modifier = Modifier.size(24.dp)) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_close),
-                                contentDescription = "닫기"
+                                contentDescription = "닫기",
+                                modifier = Modifier.size(24.dp)
                             )
                         }
                     }
@@ -106,10 +105,11 @@ fun ProductBottomSheet(
                                 color = colors.Gray800
                             )
                             Spacer(modifier = Modifier.height(10.dp))
-                            IconButton(onClick = onRemoveItem, modifier = Modifier.size(24.dp)) {
+                            IconButton(onClick = onDismiss, modifier = Modifier.size(24.dp)) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_close),
-                                    contentDescription = "닫기"
+                                    contentDescription = "닫기",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
                         }
@@ -134,6 +134,7 @@ fun ProductBottomSheet(
                         ) {
                             IconButton(
                                 onClick = {
+                                    Log.d("onClick", quantity.toString())
                                     if (quantity > 1) onQuantityChange(quantity - 1)
                                 },
                                 modifier = Modifier
@@ -161,6 +162,7 @@ fun ProductBottomSheet(
 
                             IconButton(
                                 onClick = {
+                                    Log.d("onClick", quantity.toString())
                                     onQuantityChange(quantity + 1)
                                 },
                                 modifier = Modifier
@@ -189,99 +191,6 @@ fun ProductBottomSheet(
         }
 }
 
-
-@Composable
-fun Quantity() {
-    var count by remember { mutableStateOf(1) }
-    val colors = LocalSopkatonColorsProvider.current
-    val typography = LocalTypographyProvider.current
-
-    Row(
-        modifier = Modifier
-            .width(86.dp)
-            .height(32.dp)
-            .background(
-                color = colors.White,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .border(
-                width = 1.dp,
-                color = colors.Primary300,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(4.dp)
-        ,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        IconButton(onClick = {
-            if (count > 1) count--
-        }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_minus),
-                contentDescription = "Minus"
-            )
-        }
-
-        Text(
-            text = count.toString(),
-            style = typography.title_sb_14,
-            color = colors.Gray900
-        )
-
-        IconButton(onClick = { count++ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_plus),
-                contentDescription = "Plus"
-            )
-        }
-    }
-}
-
-@Composable
-fun ProductCountBox() {
-    val colors = LocalSopkatonColorsProvider.current
-    val typography = LocalTypographyProvider.current
-
-    Column(
-        modifier = Modifier
-            .width(320.dp)
-            .height(89.dp)
-            .background(
-                color = colors.Primary100,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top
-        ) {
-            Text(
-                text = "바치랑바다랑 킹스베리 딸기 논산 대왕 왕딸기 …",
-                color = colors.Gray800,
-                style = typography.body_r_12,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            IconButton(
-                onClick = { },
-                modifier = Modifier.size(24.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_close),
-                    contentDescription = "닫기"
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Quantity()
-    }
-}
-
 @Composable
 fun ProductBottomSheetPreviewScreen() {
     var isVisible by remember { mutableStateOf(true) }
@@ -302,7 +211,6 @@ fun ProductBottomSheetPreviewScreen() {
             quantity = quantity,
             onQuantityChange = { quantity = it },
             onDismiss = { isVisible = false },
-            onRemoveItem = { },
             onPurchase = { }
         )
     }
@@ -335,7 +243,6 @@ fun ProductBottomSheetPreviewWrapper() {
                 quantity = quantity,
                 onQuantityChange = { quantity = it },
                 onDismiss = { isVisible = false },
-                onRemoveItem = { },
                 onPurchase = { }
             )
         }

@@ -10,10 +10,10 @@ object KeyStorage {
         "왕족"
     )
     val LEVEL_IMG_LIST = listOf(
-        R.drawable.img_home_level,
-        R.drawable.img_home_level,
-        R.drawable.img_home_level,
-        R.drawable.img_home_level
+        R.drawable.img_level_1,
+        R.drawable.img_level_2,
+        R.drawable.img_level_3,
+        R.drawable.img_level_4
     )
 
 }

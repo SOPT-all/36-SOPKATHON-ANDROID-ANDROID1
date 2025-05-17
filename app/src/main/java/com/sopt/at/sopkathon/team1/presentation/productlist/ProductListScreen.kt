@@ -1,9 +1,7 @@
 package com.sopt.at.sopkathon.team1.presentation.productlist
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.runtime.setValue
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,18 +13,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.sopt.at.sopkathon.team1.core.component.ListViewTopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Gray100
@@ -53,33 +51,48 @@ import com.sopt.at.sopkathon.team1.data.dto.type.CategoryType
 
 @Composable
 fun ProductListScreen(
+    startCategory: String,
+    onNavigateToProductDetail: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
-    var selectedItem by remember { mutableStateOf(CategoryType.CHILI) }
+    var selectedItem by remember { mutableStateOf(
+        when(startCategory) {
+            CategoryType.STRAWBERRY.categoryName -> CategoryType.STRAWBERRY
+            CategoryType.APPLE.categoryName -> CategoryType.APPLE
+            CategoryType.CHESTNUT.categoryName -> CategoryType.CHESTNUT
+            CategoryType.WATERMELON.categoryName -> CategoryType.WATERMELON
+            CategoryType.SHIITAKE.categoryName -> CategoryType.SHIITAKE
+            CategoryType.CHILI.categoryName -> CategoryType.CHILI
+            CategoryType.RICE.categoryName -> CategoryType.RICE
+            else -> CategoryType.STRAWBERRY
+        }
+    ) }
 
     val categoryList = mutableListOf(
-        CategoryType.CHILI,
-        CategoryType.GINSENG,
-        CategoryType.SHIITAKE,
-        CategoryType.GARLIC,
-        CategoryType.APPLE,
         CategoryType.STRAWBERRY,
+        CategoryType.APPLE,
         CategoryType.CHESTNUT,
-        CategoryType.MELON,
+        CategoryType.WATERMELON,
+        CategoryType.SHIITAKE,
+        CategoryType.CHILI,
         CategoryType.RICE
     )
 
+    val productList by viewModel.productList.collectAsStateWithLifecycle()
 
-    Scaffold(modifier = modifier.background(color = GrayBackground),
-        topBar = {
-            ListViewTopBar(Modifier.background(GrayBackground))
-    }) { innerPadding ->
+    viewModel.getProductList(startCategory)
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = GrayBackground)
+            .systemBarsPadding()
+    ) {
+        ListViewTopBar(Modifier.background(GrayBackground))
+
         Column (
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(color = GrayBackground)
         ) {
             LazyRow(
                 modifier = Modifier
@@ -91,29 +104,21 @@ fun ProductListScreen(
                 items(categoryList.size) { index ->
                     CategoryItemLayout(categoryList[index], selectedItem) {
                         selectedItem = it
+                        viewModel.getProductList(selectedItem.categoryName)
                     }
                 }
             }
 
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp),
                 contentPadding = PaddingValues(top = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                repeat(20) {
-                    item {
-                        ProductItemLayout(
-                            ProductInfo(
-                                id = 1,
-                                title = "바치랑바다랑 킹스베리 딸기 논산 대왕 왕딸기 설향 한박스",
-                                image = "https://github.com/user-attachments/assets/3ff30b79-080e-476c-a6e2-fd14a1acaec2",
-                                region = "충청남도 논산시 관촉동",
-                                price = 10000
-                            )
-                        ) {
-
-                        }
+                items(productList.size) { index ->
+                    ProductItemLayout(productList[index]) {
+                        onNavigateToProductDetail(it.toLong())
                     }
                 }
             }
@@ -154,7 +159,7 @@ fun CategoryItemLayout(categoryType: CategoryType, selectedCategory: CategoryTyp
 }
 
 @Composable
-fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
+fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (Long) -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
 
     Row(
@@ -170,7 +175,7 @@ fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (String) -> Unit) {
                     isPressed = it
                 },
                 onClick = {
-
+                    itemOnClick((productInfo.id ?: 0L).toLong())
                 }
             ),
     ) {
