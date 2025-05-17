@@ -31,10 +31,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
+import com.sopt.at.sopkathon.team1.R
 import com.sopt.at.sopkathon.team1.core.component.CustomButton
 import com.sopt.at.sopkathon.team1.core.component.TopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalTypographyProvider
+import com.sopt.at.sopkathon.team1.core.extension.toDecimalFormat
 
 @Composable
 fun ProductDetailScreen(
@@ -60,7 +63,7 @@ fun ProductDetailScreen(
             TopBar()
 
             Image(
-                painter = painterResource(state.imageResId),
+                painter = rememberAsyncImagePainter(state.image ?: ""),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -72,13 +75,13 @@ fun ProductDetailScreen(
             Column(modifier = Modifier.padding(16.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        painter = painterResource(state.profileImageResId),
+                        painter = painterResource(R.drawable.strawberry_profile),
                         contentDescription = null,
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = state.seller,
+                        text = state.seller ?: "",
                         style = typography.title_sb_14,
                         color = colors.Primary500
                     )
@@ -87,7 +90,7 @@ fun ProductDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = state.title,
+                    text = state.title ?: "",
                     style = typography.head_eb_20,
                     color = colors.Primary900
                 )
@@ -95,7 +98,7 @@ fun ProductDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = state.price,
+                    text = "${state.price?.toDecimalFormat()}원",
                     style = typography.head_eb_28,
                     color = colors.Primary900
                 )
@@ -110,11 +113,11 @@ fun ProductDetailScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                DeliveryInfo(infoList = state.deliveryInfo)
+//                DeliveryInfo(infoList = state.storage)
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                FeatureSection(features = state.features)
+//                FeatureSection(features = state.features)
             }
         }
 
