@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -31,34 +33,50 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sopt.at.sopkathon.team1.core.component.TopBar
+import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Gray900
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalTypographyProvider
-import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.White
+import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Primary500
+import com.sopt.at.sopkathon.team1.presentation.home.component.LevelComponent
 
 @Composable
 fun HomeScreen(
     onNavigateToProductList: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
 ) {
-    Market(viewModel)
+    Market(modifier = modifier)
 }
 
 @Composable
 fun Market(
-    viewModel: HomeViewModel
-){
-    Surface(
-        color = LocalSopkatonColorsProvider.current.GrayBackground,
-        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    Column(
+        modifier = modifier.background(Primary500)
+            .statusBarsPadding()
     ) {
-        val categories by viewModel.categories.collectAsState()
-        LazyColumn (
-            modifier = Modifier.padding(top = 32.dp)
-        )  {
-            itemsIndexed(categories) { index, category ->
-                if (index > 0) Spacer(modifier = Modifier.height(32.dp))
-                Section(category = category)
+        TopBar()
+        LevelComponent(
+            nickname = "몬난이",
+            level = 0,
+            maxPrice = 100000,
+            totalPrice = 70000,
+        )
+        Surface(
+            color = LocalSopkatonColorsProvider.current.GrayBackground,
+            shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        ) {
+            val categories by viewModel.categories.collectAsState()
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(32.dp)
+            ) {
+                itemsIndexed(categories) { index, category ->
+                    if(index == 0) Spacer(Modifier.height(32.dp))
+                    Section(category = category)
+                    if(index == categories.lastIndex) Spacer(Modifier.navigationBarsPadding().height(18.dp))
+                }
             }
         }
     }
@@ -70,7 +88,7 @@ fun Section(category: CategoryData) {
         // 카테고리 제목
         Text(
             text = stringResource(id = category.title),
-            style = LocalTypographyProvider.current.head_eb_28,
+            style = LocalTypographyProvider.current.head_eb_28.merge(Gray900),
             modifier = Modifier.padding(horizontal = 20.dp)
         )
 
