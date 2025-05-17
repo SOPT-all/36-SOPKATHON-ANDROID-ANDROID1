@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -56,33 +56,49 @@ fun Market(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val userInfo by viewModel.userInfo.collectAsStateWithLifecycle()
+    val categories by viewModel.categories.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getUserInfo()
     }
+
     Column(
-        modifier = modifier.background(Primary500)
+        modifier = modifier
+            .fillMaxSize()
+            .background(Primary500)
             .statusBarsPadding()
     ) {
         TopBar()
-        LevelComponent(
-            nickname = userInfo.username.toString(),
-            level = userInfo.level ?: 0,
-            maxPrice = userInfo.maxPrice ?: 0,
-            totalPrice = userInfo.totalPrice ?: 0,
-        )
-        Surface(
-            color = LocalSopkatonColorsProvider.current.GrayBackground,
-            shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(0.dp),
         ) {
-            val categories by viewModel.categories.collectAsState()
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(32.dp)
-            ) {
-                itemsIndexed(categories) { index, category ->
-                    if(index == 0) Spacer(Modifier.height(32.dp))
-                    Section(category = category)
-                    if(index == categories.lastIndex) Spacer(Modifier.navigationBarsPadding().height(18.dp))
+            item {
+                LevelComponent(
+                    nickname = userInfo.username.toString(),
+                    level = userInfo.level ?: 0,
+                    maxPrice = userInfo.maxPrice ?: 0,
+                    totalPrice = userInfo.totalPrice ?: 0,
+                )
+            }
+
+            item {
+                Surface(
+                    color = LocalSopkatonColorsProvider.current.GrayBackground,
+                    shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(32.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 32.dp)
+                    ) {
+                        categories.forEach { category ->
+                            Section(category = category)
+                        }
+                        Spacer(modifier = Modifier.navigationBarsPadding().height(18.dp))
+                    }
                 }
             }
         }
@@ -91,7 +107,9 @@ fun Market(
 
 @Composable
 fun Section(category: CategoryData) {
-    Column() {
+    Column(
+
+    ) {
         // 카테고리 제목
         Text(
             text = stringResource(id = category.title),
