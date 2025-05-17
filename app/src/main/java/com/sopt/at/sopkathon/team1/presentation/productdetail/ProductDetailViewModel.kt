@@ -2,7 +2,6 @@ package com.sopt.at.sopkathon.team1.presentation.productdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.at.sopkathon.team1.R
 import com.sopt.at.sopkathon.team1.data.dto.request.PurchaseProductRequest
 import com.sopt.at.sopkathon.team1.data.dto.response.ProductInfo
 import com.sopt.at.sopkathon.team1.data.repositoryimpl.Team1RepositoryImpl
