@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">team1</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- Dummy Bottom Navigation Bar -->
+    <string name="bottom_navigation_bar_item_home">홈</string>
+    <string name="bottom_navigation_bar_item_setting">설정</string>
+</resources>
