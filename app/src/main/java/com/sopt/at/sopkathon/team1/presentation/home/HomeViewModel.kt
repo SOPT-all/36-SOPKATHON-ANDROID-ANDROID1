@@ -27,9 +27,9 @@ class HomeViewModel @Inject constructor(
             CategoryData(
                 R.string.home_category_1,
                 listOf(
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
+                    ItemData("사과", R.drawable.img_apple),
+                    ItemData("수박", R.drawable.img_watermelon),
+                    ItemData("버섯", R.drawable.img_mushroom),
                     ItemData("딸기", R.drawable.img_strawberry),
                 )
             ),
@@ -37,27 +37,24 @@ class HomeViewModel @Inject constructor(
                 R.string.home_category_2,
                 listOf(
                     ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
+                    ItemData("사과", R.drawable.img_apple),
+                    ItemData("알밤", R.drawable.img_chestnut),
                     ItemData("딸기", R.drawable.img_strawberry),
                 )
             ),
             CategoryData(
                 R.string.home_category_3,
                 listOf(
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
+                    ItemData("고추", R.drawable.img_redpepper),
+                    ItemData("버섯", R.drawable.img_mushroom),
+                    ItemData("수박", R.drawable.img_watermelon),
                     ItemData("딸기", R.drawable.img_strawberry),
                 )
             ),
             CategoryData(
                 R.string.home_category_4,
                 listOf(
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
-                    ItemData("딸기", R.drawable.img_strawberry),
+                    ItemData("쌀", R.drawable.img_rice),
                 )
             ),
         )
