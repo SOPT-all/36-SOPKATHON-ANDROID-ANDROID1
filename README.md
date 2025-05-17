@@ -1,0 +1,2 @@
+# 36-SOPKATHON-ANDROID-ANDROID1
+36기 솝커톤 안드로이드 1팀 레포입니다.
