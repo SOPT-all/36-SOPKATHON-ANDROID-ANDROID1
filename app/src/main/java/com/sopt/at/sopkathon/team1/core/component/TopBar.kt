@@ -34,7 +34,7 @@ fun TopBar(
             modifier = Modifier.size(32.dp)
         )
         Text(
-            text = "서비스 이름",
+            text = "쪼매못났슈",
             style = defaultSopkatonTypography.title_sb_18.merge(
                 defaultSopkatonColors.White
             ),
