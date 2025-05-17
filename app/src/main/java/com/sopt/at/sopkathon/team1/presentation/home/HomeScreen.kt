@@ -58,7 +58,7 @@ fun HomeScreen(
     Scaffold (
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = {  },
                 containerColor = LocalSopkatonColorsProvider.current.Primary500,
                 contentColor = Color.White,
                 shape = CircleShape,
@@ -71,7 +71,7 @@ fun HomeScreen(
                     .size(48.dp)
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_map),
+                    imageVector = ImageVector.vectorResource(R.drawable.img_map),
                     contentDescription = "지도 보기"
                 )
             }
