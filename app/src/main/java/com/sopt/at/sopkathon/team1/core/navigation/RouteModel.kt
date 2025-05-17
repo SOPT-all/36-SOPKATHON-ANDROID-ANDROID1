@@ -7,12 +7,13 @@ sealed interface Route {
 
     @Serializable
     data class ProductList(
-        val category: String
+        val category: String,
     ) : Route
 
     @Serializable
     data class ProductDetail(
-        val productId: Long
+        val productId: Long,
+        val price: Int
     ) : Route
 
     @Serializable

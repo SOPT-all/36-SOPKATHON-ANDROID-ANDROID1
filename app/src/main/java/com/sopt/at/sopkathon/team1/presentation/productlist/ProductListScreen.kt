@@ -52,7 +52,7 @@ import com.sopt.at.sopkathon.team1.data.dto.type.CategoryType
 @Composable
 fun ProductListScreen(
     startCategory: String,
-    onNavigateToProductDetail: (Long) -> Unit,
+    onNavigateToProductDetail: (Long, Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
@@ -117,8 +117,8 @@ fun ProductListScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(productList.size) { index ->
-                    ProductItemLayout(productList[index]) {
-                        onNavigateToProductDetail(it.toLong())
+                    ProductItemLayout(productList[index]) { id, price ->
+                        onNavigateToProductDetail(id, price)
                     }
                 }
             }
@@ -159,7 +159,7 @@ fun CategoryItemLayout(categoryType: CategoryType, selectedCategory: CategoryTyp
 }
 
 @Composable
-fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (Long) -> Unit) {
+fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (Long, Int) -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
 
     Row(
@@ -175,7 +175,10 @@ fun ProductItemLayout(productInfo: ProductInfo, itemOnClick: (Long) -> Unit) {
                     isPressed = it
                 },
                 onClick = {
-                    itemOnClick((productInfo.id ?: 0L).toLong())
+                    itemOnClick(
+                        (productInfo.id ?: 0L).toLong(),
+                        productInfo.price ?: 0
+                    )
                 }
             ),
     ) {

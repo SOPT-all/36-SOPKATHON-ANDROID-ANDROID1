@@ -109,7 +109,7 @@ fun LevelComponent(
             }
             else{
                 Text(
-                    text = "못난이들의 왕! 충남 특산물을 정복했어요!",
+                    text = "못난이들의 왕! 충남 농산물을 정복했어요!",
                     style = typography.body_r_12.merge(White)
                 )
             }

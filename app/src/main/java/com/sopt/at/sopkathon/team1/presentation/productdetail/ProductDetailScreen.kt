@@ -54,6 +54,7 @@ import com.sopt.at.sopkathon.team1.core.extension.toDecimalFormat
 fun ProductDetailScreen(
     modifier: Modifier = Modifier,
     productId: Long = 0L,
+    price: Int = 0,
     onNavigateToHome: () -> Unit,
     viewModel: ProductDetailViewModel = hiltViewModel()
 ) {
@@ -124,7 +125,7 @@ fun ProductDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "${(state.price ?: 0).toDecimalFormat()}원",
+                    text = "${price.toDecimalFormat()}원",
                     style = typography.head_eb_28,
                     color = colors.Primary900
                 )

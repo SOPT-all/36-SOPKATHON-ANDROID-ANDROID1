@@ -42,8 +42,8 @@ fun MainNavHost(
             ProductListScreen(
                 startCategory = category,
                 modifier = defaultModifier,
-                onNavigateToProductDetail = { id ->
-                    navigator.navigate(Route.ProductDetail(id))
+                onNavigateToProductDetail = { id, price->
+                    navigator.navigate(Route.ProductDetail(id, price))
                 }
             )
         }
@@ -54,8 +54,10 @@ fun MainNavHost(
         }
         composable<Route.ProductDetail> { navBackStackEntry ->
             val productId = navBackStackEntry.toRoute<Route.ProductDetail>().productId
+            val price = navBackStackEntry.toRoute<Route.ProductDetail>().price
             ProductDetailScreen(
                 modifier = defaultModifier,
+                price = price,
                 productId = productId,
                 onNavigateToHome = {
                     navigator.navigate(Route.Home, navigator.clearStackOptions)
