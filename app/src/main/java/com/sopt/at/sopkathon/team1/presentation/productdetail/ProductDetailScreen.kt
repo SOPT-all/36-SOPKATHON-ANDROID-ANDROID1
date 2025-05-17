@@ -208,7 +208,8 @@ fun ProductDetailScreen(
                             isShowDialog = true
                         }
                     )
-                }
+                },
+                price = price
             )
         }
     }

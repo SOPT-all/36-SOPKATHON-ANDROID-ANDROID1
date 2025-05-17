@@ -78,9 +78,10 @@ fun HomeScreen(
             }
         }
     ) { innerPadding ->
+        val padding = innerPadding
         Market(
             onNavigateToProductList = onNavigateToProductList,
-            modifier = modifier.padding(innerPadding)
+            modifier = modifier
         )
 
     }

@@ -31,19 +31,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.at.sopkathon.team1.R
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalTypographyProvider
+import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Primary900
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.defaultSopkatonColors
 import com.sopt.at.sopkathon.team1.core.extension.noRippleClickable
+import com.sopt.at.sopkathon.team1.core.extension.toDecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductBottomSheet(
     productName: String,
+    price: Int,
     quantity: Int,
     onQuantityChange: (Int) -> Unit,
     onDismiss: () -> Unit,
@@ -178,7 +182,13 @@ fun ProductBottomSheet(
                     }
 
                     Spacer(modifier = Modifier.height(32.dp))
-
+                    Text(
+                        text = "${(price*quantity).toDecimalFormat()} 원",
+                        style = typography.head_eb_28.merge(Primary900),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        textAlign = TextAlign.End
+                    )
                     CustomButton(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -211,7 +221,8 @@ fun ProductBottomSheetPreviewScreen() {
             quantity = quantity,
             onQuantityChange = { quantity = it },
             onDismiss = { isVisible = false },
-            onPurchase = { }
+            onPurchase = { },
+            price = 0
         )
     }
 }
@@ -243,7 +254,8 @@ fun ProductBottomSheetPreviewWrapper() {
                 quantity = quantity,
                 onQuantityChange = { quantity = it },
                 onDismiss = { isVisible = false },
-                onPurchase = { }
+                onPurchase = { },
+                price = 0
             )
         }
     }
