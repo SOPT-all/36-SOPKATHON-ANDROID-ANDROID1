@@ -22,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.at.sopkathon.team1.core.component.TopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Gray900
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.LocalSopkatonColorsProvider
@@ -53,16 +55,21 @@ fun Market(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val userInfo by viewModel.userInfo.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.getUserInfo()
+    }
     Column(
         modifier = modifier.background(Primary500)
             .statusBarsPadding()
     ) {
         TopBar()
         LevelComponent(
-            nickname = "몬난이",
-            level = 0,
-            maxPrice = 100000,
-            totalPrice = 70000,
+            nickname = userInfo.name,
+            level = userInfo.level,
+            maxPrice = userInfo.maxPrice,
+            totalPrice = userInfo.totalPrice,
         )
         Surface(
             color = LocalSopkatonColorsProvider.current.GrayBackground,
