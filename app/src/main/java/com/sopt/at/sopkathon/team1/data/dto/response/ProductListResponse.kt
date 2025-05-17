@@ -13,7 +13,6 @@ data class ProductInfo(
     var title: String? = null,
     var image: String? = null,
     var region: String? = null,
-    var body: String? = null,
     var price: Int? = null,
     var feature: String? = null,
     var flavor: String? = null,

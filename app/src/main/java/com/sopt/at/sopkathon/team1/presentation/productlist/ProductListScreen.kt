@@ -110,7 +110,6 @@ fun ProductListScreen(
                                 title = "바치랑바다랑 킹스베리 딸기 논산 대왕 왕딸기 설향 한박스",
                                 image = "https://github.com/user-attachments/assets/3ff30b79-080e-476c-a6e2-fd14a1acaec2",
                                 region = "충청남도 논산시 관촉동",
-                                body = "",
                                 price = 10000
                             )
                         ) {

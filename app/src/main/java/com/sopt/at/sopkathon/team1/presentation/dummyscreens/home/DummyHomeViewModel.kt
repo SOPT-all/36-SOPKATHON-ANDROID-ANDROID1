@@ -27,20 +27,20 @@ class DummyHomeViewModel @Inject constructor(
     }
     fun postService(){
         viewModelScope.launch {
-            team1RepositoryImpl.postService(
-                DummyServiceRequest(
-                    id = _userId.value
-                )
-            ).onFailure { error ->
-                val errorResponse = error.message
-                //실패 시 수행 작업
-                Log.d("failure", errorResponse.toString())
-            }.onSuccess { response ->
-                //성공 시 수행 작업
-                _list.update {
-                    response.info
-                }
-            }
+//            team1RepositoryImpl.postService(
+//                DummyServiceRequest(
+//                    id = _userId.value
+//                )
+//            ).onFailure { error ->
+//                val errorResponse = error.message
+//                //실패 시 수행 작업
+//                Log.d("failure", errorResponse.toString())
+//            }.onSuccess { response ->
+//                //성공 시 수행 작업
+//                _list.update {
+//                    response.info
+//                }
+//            }
         }
     }
 }
