@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import com.sopt.at.sopkathon.team1.core.component.ListViewTopBar
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Gray100
@@ -53,23 +54,36 @@ import com.sopt.at.sopkathon.team1.data.dto.type.CategoryType
 
 @Composable
 fun ProductListScreen(
+    startCategory: String,
     modifier: Modifier = Modifier,
     viewModel: ProductListViewModel = hiltViewModel()
 ) {
-    var selectedItem by remember { mutableStateOf(CategoryType.CHILI) }
+    var selectedItem by remember { mutableStateOf(
+        when(startCategory) {
+            CategoryType.STRAWBERRY.categoryName -> CategoryType.STRAWBERRY
+            CategoryType.APPLE.categoryName -> CategoryType.APPLE
+            CategoryType.CHESTNUT.categoryName -> CategoryType.CHESTNUT
+            CategoryType.WATERMELON.categoryName -> CategoryType.WATERMELON
+            CategoryType.SHIITAKE.categoryName -> CategoryType.SHIITAKE
+            CategoryType.CHILI.categoryName -> CategoryType.CHILI
+            CategoryType.RICE.categoryName -> CategoryType.RICE
+            else -> CategoryType.STRAWBERRY
+        }
+    ) }
 
     val categoryList = mutableListOf(
-        CategoryType.CHILI,
-        CategoryType.GINSENG,
-        CategoryType.SHIITAKE,
-        CategoryType.GARLIC,
-        CategoryType.APPLE,
         CategoryType.STRAWBERRY,
+        CategoryType.APPLE,
         CategoryType.CHESTNUT,
-        CategoryType.MELON,
+        CategoryType.WATERMELON,
+        CategoryType.SHIITAKE,
+        CategoryType.CHILI,
         CategoryType.RICE
     )
 
+    val productList by viewModel.productList.collectAsStateWithLifecycle()
+
+    viewModel.getProductList(startCategory)
 
     Scaffold(modifier = modifier.background(color = GrayBackground),
         topBar = {
@@ -91,29 +105,21 @@ fun ProductListScreen(
                 items(categoryList.size) { index ->
                     CategoryItemLayout(categoryList[index], selectedItem) {
                         selectedItem = it
+                        viewModel.getProductList(selectedItem.name)
                     }
                 }
             }
 
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp),
                 contentPadding = PaddingValues(top = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                repeat(20) {
-                    item {
-                        ProductItemLayout(
-                            ProductInfo(
-                                id = 1,
-                                title = "바치랑바다랑 킹스베리 딸기 논산 대왕 왕딸기 설향 한박스",
-                                image = "https://github.com/user-attachments/assets/3ff30b79-080e-476c-a6e2-fd14a1acaec2",
-                                region = "충청남도 논산시 관촉동",
-                                price = 10000
-                            )
-                        ) {
+                items(productList.size) { index ->
+                    ProductItemLayout(productList[index]) {
 
-                        }
                     }
                 }
             }

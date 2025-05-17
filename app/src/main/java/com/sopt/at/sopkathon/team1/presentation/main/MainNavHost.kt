@@ -42,6 +42,7 @@ fun MainNavHost(
         composable<Route.ProductList>{ navBackStackEntry ->
             val category = navBackStackEntry.toRoute<Route.ProductList>().category
             ProductListScreen(
+                startCategory = category,
                 modifier = defaultModifier,
             )
         }
