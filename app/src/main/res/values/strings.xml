@@ -5,4 +5,10 @@
     <!-- Dummy Bottom Navigation Bar -->
     <string name="bottom_navigation_bar_item_home">홈</string>
     <string name="bottom_navigation_bar_item_setting">설정</string>
+
+    <!-- Home Screen -->
+    <string name="home_category_1">제철이에유</string>
+    <string name="home_category_2">몬난이 과일</string>
+    <string name="home_category_3">몬난이 야채</string>
+    <string name="home_category_4">몬난이 곡물</string>
 </resources>

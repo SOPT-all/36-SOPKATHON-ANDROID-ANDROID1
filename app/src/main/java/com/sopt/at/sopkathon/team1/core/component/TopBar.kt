@@ -24,14 +24,14 @@ fun TopBar(
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(horizontal = 16.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_menu_hamburger),
             contentDescription = "",
             tint = defaultSopkatonColors.White,
-            modifier = Modifier.size(48.dp)
+            modifier = Modifier.size(32.dp)
         )
         Text(
             text = "서비스 이름",
