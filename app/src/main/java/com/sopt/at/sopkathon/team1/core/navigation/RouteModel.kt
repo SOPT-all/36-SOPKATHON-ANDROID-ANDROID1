@@ -17,4 +17,7 @@ sealed interface Route {
 
     @Serializable
     data object Level : Route
+
+    @Serializable
+    data object Map : Route
 }
