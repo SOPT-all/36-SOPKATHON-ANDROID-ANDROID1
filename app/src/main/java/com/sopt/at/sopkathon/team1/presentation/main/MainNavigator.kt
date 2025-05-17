@@ -16,7 +16,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Route.Home
+    val startDestination = Route.ProductList
 
     fun navigate(route: Route, navOptions: NavOptions? = null) {
         navController.navigate(route, navOptions)
