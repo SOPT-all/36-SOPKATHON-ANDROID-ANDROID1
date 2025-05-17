@@ -2,6 +2,7 @@ package com.sopt.at.sopkathon.team1.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -100,28 +101,31 @@ fun Section(category: CategoryData) {
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(category.items) { item ->
-                ItemCard(item)
+                ItemCard(item, {})
             }
         }
     }
 }
 
 @Composable
-fun ItemCard(item: ItemData) {
+fun ItemCard(
+    item: ItemData,
+    onclick: (String) -> Unit
+) {
     Card(
         shape = RoundedCornerShape(24.dp),
-        //elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
             containerColor = LocalSopkatonColorsProvider.current.White,
         ),
         modifier = Modifier
             .size(width = 126.dp, height = 156.dp)
-            .background(LocalSopkatonColorsProvider.current.GrayBackground)
             .shadow(
                 elevation = 4.dp,
                 shape = RoundedCornerShape(24.dp),
                 ambientColor = Color(0x404F6450)
-            ),
+            )
+            .clickable { onclick(item.name) }
+            .background(LocalSopkatonColorsProvider.current.GrayBackground),
     ) {
         Column(
             modifier = Modifier
