@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.Team1Theme
+import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.SopkatonTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Team1Theme {
+            SopkatonTheme {
                 MainScreen()
             }
         }
