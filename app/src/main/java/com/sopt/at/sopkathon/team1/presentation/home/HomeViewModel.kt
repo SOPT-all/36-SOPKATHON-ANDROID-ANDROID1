@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _userInfo = MutableStateFlow(UserInfoResponse(
         id = 0L,
-        name = "",
+        username = "",
         totalPrice = 0,
         level = 0,
         maxPrice = 0

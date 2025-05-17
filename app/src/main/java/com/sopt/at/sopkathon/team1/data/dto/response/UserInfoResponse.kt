@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserInfoResponse (
     var id: Long? = null,
-    var name: String? = null,
+    var username: String? = null,
     var totalPrice: Int? = null,
     var level: Int? = null,
     var maxPrice: Int? = null

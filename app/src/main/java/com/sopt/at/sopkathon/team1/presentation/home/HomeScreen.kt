@@ -66,7 +66,7 @@ fun Market(
     ) {
         TopBar()
         LevelComponent(
-            nickname = userInfo.name.toString(),
+            nickname = userInfo.username.toString(),
             level = userInfo.level ?: 0,
             maxPrice = userInfo.maxPrice ?: 0,
             totalPrice = userInfo.totalPrice ?: 0,
