@@ -2,14 +2,14 @@
 36기 솝커톤 안드로이드 1팀 레포입니다.
 
 ## 서비스 소개
-### 🍠 못난이 농산물 중개 서비스 "필.소.굿"
-### 🍠 못난이 농산물 앱의 특별한 계급 시스템
-- 우리 앱에서는 많이 사고, 많이 사랑할수록 여러분의 신분(?)이 올라갑니다!
+### 🍠 충청남도 기반 못난이 농산물 유통 서비스 "쪼매못났슈"
+- "쪼매못났슈"에서는 많이 사고, 많이 사랑할수록 여러분의 신분(?)이 올라갑니다!
 - 못난이 농산물을 꾸준히 구매하면, 과거로 시간 여행을 떠난 듯한 재미있는 계급 시스템이 펼쳐집니다.
 
 ## 주요기능
 
 - 카테고리별 농산물 탐색
+- 지역별 농산물 탐색
 - 농산물 상세 정보 조회
 - 농산물 구매 기능
 - 계급 시스템
@@ -48,15 +48,22 @@
 ┃ ┃ ┣ 📂 ui (color, type, theme)
 ┃ ┣ 📂 extension
 ┃ ┣ 📂 navigation
-┃ ┣ 📂 base
 ┣ 📂 data
 ┃ ┣ 📂 di
 ┃ ┣ 📂 dto
+┃ ┃ ┣ 📂 base
+┃ ┃ ┣ 📂 request
+┃ ┃ ┣ 📂 response
+┃ ┃ ┣ 📂 type
 ┃ ┣ 📂 service
 ┃ ┣ 📂 repositoryimpl
 ┣ 📂 presentation
 ┃ ┣ 📂 main
-┃ ┣ 📂(화면명)
+┃ ┣ 📂 home
+┃ ┣ 📂 map
+┃ ┣ 📂 productlist
+┃ ┣ 📂 productdetail
+
 ```
 
 ## 🗣 파트내 협업방식
@@ -70,4 +77,13 @@
 - ### Before
   
   <img src="https://github.com/user-attachments/assets/9d58982d-9b9e-40ab-89af-679c1513a551" width="500"  height="350">
+
+- ### After
+   <img src="https://github.com/user-attachments/assets/316f3ff5-cc0c-414f-a850-2508df3efc09"  width="500"  height="350">
+
+## 🎥 시연 영상
+
+https://github.com/user-attachments/assets/0eb44c6b-5ff9-44f4-8fed-ff9426a710eb
+
+
 
