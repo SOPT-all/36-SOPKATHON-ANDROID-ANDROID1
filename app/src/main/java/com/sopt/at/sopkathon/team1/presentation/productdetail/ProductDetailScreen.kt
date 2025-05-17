@@ -96,7 +96,11 @@ fun ProductDetailScreen(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = state.seller ?: "",
+                        text = if (state.seller != null && state.region != null) {
+                            "${state.seller} · ${state.region}"
+                        } else {
+                            state.seller ?: state.region ?: ""
+                        },
                         style = typography.title_sb_14,
                         color = colors.Primary500
                     )
