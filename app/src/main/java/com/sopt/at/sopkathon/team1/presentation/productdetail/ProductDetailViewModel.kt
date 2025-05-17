@@ -25,29 +25,21 @@ class ProductDetailViewModel @Inject constructor(
 
     fun loadProductDetail(productId: Long) {
         viewModelScope.launch {
-            val result = team1RepositoryImpl.getProductInfo(productId)
-
-            if(result.isSuccessful) {
-                result.body()?.let {
-                    _uiState.value = it.data ?: ProductInfo()
-                }
+            team1RepositoryImpl.getProductInfo(productId).onSuccess { result ->
+                _uiState.value = result
             }
         }
     }
     fun postProductDetail(userId: Long, productId: Long, count: Int, action: () -> Unit = {}) {
         viewModelScope.launch {
-            val result = team1RepositoryImpl.purchaseProduce(
+            team1RepositoryImpl.purchaseProduce(
                 request = PurchaseProductRequest(
                     userId = userId,
                     productId = productId,
                     quantity = count
                 )
-            )
-
-            if(result.isSuccessful) {
-                result.body()?.let {
-                    action()
-                }
+            ).onSuccess {
+                action()
             }
         }
     }

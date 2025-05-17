@@ -21,12 +21,8 @@ class ProductListViewModel @Inject constructor(
 
 
     fun getProductList(category: String) = viewModelScope.launch {
-        val result = team1RepositoryImpl.getProductList(category)
-
-        if(result.isSuccessful) {
-            result.body()?.let {
-                _productList.emit(it.data?.info ?: emptyList())
-            }
+        team1RepositoryImpl.getProductList(category).onSuccess { data ->
+            _productList.value = data.info ?: emptyList()
         }
     }
 }

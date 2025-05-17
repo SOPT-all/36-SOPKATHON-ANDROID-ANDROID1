@@ -23,16 +23,16 @@ interface Team1Service {
     @GET("/api/v1/product")
     suspend fun getProductList(
         @Query("category") category: String
-    ): Response<BaseResponse<ProductListResponse>>
+    ): BaseResponse<ProductListResponse>
 
     @GET("/api/v1/product/{productId}")
     suspend fun getProductInfo(
         @Path("productId") productId: Long
-    ): Response<BaseResponse<ProductInfo>>
+    ): BaseResponse<ProductInfo>
 
     @POST("/api/v1/order")
     suspend fun purchaseProduce(
         @Body request: PurchaseProductRequest
-    ): Response<BaseResponse<PurchaseProductResponse>>
+    ): BaseResponse<PurchaseProductResponse>
 
 }

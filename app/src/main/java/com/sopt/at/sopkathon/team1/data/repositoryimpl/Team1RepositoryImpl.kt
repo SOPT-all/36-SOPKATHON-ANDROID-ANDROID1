@@ -20,19 +20,22 @@ class Team1RepositoryImpl @Inject constructor(
             response.data ?: throw Exception("No data in response")
         }
 
-    suspend fun getProductList(category: String): Response<BaseResponse<ProductListResponse>> =
-        run {
-            service.getProductList(category)
+    suspend fun getProductList(category: String): Result<ProductListResponse> =
+        runCatching {
+            val response = service.getProductList(category)
+            response.data ?: throw Exception("No data in response")
         }
 
-    suspend fun getProductInfo(productId: Long): Response<BaseResponse<ProductInfo>> =
-        run {
-            service.getProductInfo(productId)
+    suspend fun getProductInfo(productId: Long): Result<ProductInfo> =
+        runCatching {
+            val response = service.getProductInfo(productId)
+            response.data ?: throw Exception("No data in response")
         }
 
-    suspend fun purchaseProduce(request: PurchaseProductRequest): Response<BaseResponse<PurchaseProductResponse>> =
-        run {
-            service.purchaseProduce(request)
+    suspend fun purchaseProduce(request: PurchaseProductRequest): Result<PurchaseProductResponse> =
+        runCatching {
+            val response = service.purchaseProduce(request)
+            response.data ?: throw Exception("No data in response")
         }
 
 }
