@@ -13,7 +13,7 @@ import javax.inject.Singleton
 object ApiModule {
     @Provides
     @Singleton
-    fun providesUberService(retrofit: Retrofit): Team1Service =
+    fun providesUserService(retrofit: Retrofit): Team1Service =
         retrofit.create(Team1Service::class.java)
 
 }

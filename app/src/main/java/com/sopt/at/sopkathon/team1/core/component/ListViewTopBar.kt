@@ -2,6 +2,7 @@ package com.sopt.at.sopkathon.team1.core.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -19,24 +20,26 @@ import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.defaultSopkatonCol
 import com.sopt.at.sopkathon.team1.core.designsystem.ui.theme.defaultSopkatonTypography
 
 @Composable
-fun TopBar(
+fun ListViewTopBar(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
             .padding(horizontal = 16.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_menu_hamburger),
             contentDescription = "",
-            tint = defaultSopkatonColors.White,
+            tint = defaultSopkatonColors.Gray800,
             modifier = Modifier.size(32.dp)
         )
         Text(
-            text = "쪼매못났슈",
+            text = "서비스 이름",
             style = defaultSopkatonTypography.title_sb_18.merge(
-                defaultSopkatonColors.White
+                defaultSopkatonColors.Primary500
             ),
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
@@ -44,8 +47,8 @@ fun TopBar(
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_profile),
             contentDescription = "",
-            tint = defaultSopkatonColors.White,
-            modifier = Modifier.size(48.dp)
+            tint = defaultSopkatonColors.Gray800,
+            modifier = Modifier.size(32.dp)
         )
     }
 }

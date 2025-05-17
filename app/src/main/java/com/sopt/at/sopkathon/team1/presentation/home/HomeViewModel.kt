@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.at.sopkathon.team1.R
+import com.sopt.at.sopkathon.team1.data.dto.request.PurchaseProductRequest
 import com.sopt.at.sopkathon.team1.data.dto.request.UserInfoRequest
 import com.sopt.at.sopkathon.team1.data.dto.response.UserInfoResponse
 import com.sopt.at.sopkathon.team1.data.repositoryimpl.Team1RepositoryImpl
@@ -31,7 +32,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _userInfo = MutableStateFlow(UserInfoResponse(
         id = 0L,
-        name = "",
+        username = "",
         totalPrice = 0,
         level = 0,
         maxPrice = 0
@@ -86,6 +87,10 @@ class HomeViewModel @Inject constructor(
             }.onFailure {
                 it.printStackTrace()
             }
+
+            team1RepositoryImpl.getProductList("")
+            team1RepositoryImpl.getProductInfo(0)
+            team1RepositoryImpl.purchaseProduce(PurchaseProductRequest(0))
         }
     }
 }
