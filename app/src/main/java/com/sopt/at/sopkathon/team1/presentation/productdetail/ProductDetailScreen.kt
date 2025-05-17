@@ -42,6 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.sopt.at.sopkathon.team1.R
 import com.sopt.at.sopkathon.team1.core.component.CustomButton
+import com.sopt.at.sopkathon.team1.core.component.FinishPurchaseDialog
 import com.sopt.at.sopkathon.team1.core.component.ListViewTopBar
 import com.sopt.at.sopkathon.team1.core.component.ProductBottomSheet
 import com.sopt.at.sopkathon.team1.core.component.TopBar
@@ -62,6 +63,8 @@ fun ProductDetailScreen(
     val typography = LocalTypographyProvider.current
     val state by viewModel.uiState.collectAsState()
     var isVisible by remember { mutableStateOf(false) }
+
+    var isShowDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.loadProductDetail(1)
@@ -181,11 +184,21 @@ fun ProductDetailScreen(
                         productId = productId,
                         count = count,
                         action = {
-                            onNavigateToHome()
+                            isShowDialog = true
                         }
                     )
                 }
             )
+        }
+    }
+
+    if(isShowDialog) {
+        isVisible = false
+
+        FinishPurchaseDialog(
+            setShowDialog = { isShowDialog = it },
+        ) {
+            onNavigateToHome()
         }
     }
 }
