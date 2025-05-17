@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.sopt.at.sopkathon.team1.core.navigation.Route
 import com.sopt.at.sopkathon.team1.presentation.home.HomeScreen
 import com.sopt.at.sopkathon.team1.presentation.level.LevelScreen
@@ -33,12 +34,13 @@ fun MainNavHost(
         composable<Route.Home>{
             HomeScreen(
                 modifier = homeModifier,
-                onNavigateToProductList = {
-                    navigator.navigate(Route.ProductList)
+                onNavigateToProductList = { category ->
+                    navigator.navigate(Route.ProductList(category))
                 }
             )
         }
-        composable<Route.ProductList>{
+        composable<Route.ProductList>{ navBackStackEntry ->
+            val category = navBackStackEntry.toRoute<Route.ProductList>().category
             ProductListScreen(
                 modifier = defaultModifier,
                 onNavigateToProductDetail = {

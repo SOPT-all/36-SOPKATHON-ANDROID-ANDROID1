@@ -45,14 +45,18 @@ import com.sopt.at.sopkathon.team1.presentation.home.component.LevelComponent
 
 @Composable
 fun HomeScreen(
-    onNavigateToProductList: () -> Unit,
+    onNavigateToProductList: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Market(modifier = modifier)
+    Market(
+        onNavigateToProductList = onNavigateToProductList,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun Market(
+    onNavigateToProductList: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -96,7 +100,11 @@ fun Market(
                             .padding(top = 32.dp)
                     ) {
                         categories.forEach { category ->
-                            Section(category = category)
+                            Section(
+                                category = category
+                            ){
+                                onNavigateToProductList(it)
+                            }
                         }
                         Spacer(modifier = Modifier.navigationBarsPadding().height(18.dp))
                     }
@@ -107,7 +115,10 @@ fun Market(
 }
 
 @Composable
-fun Section(category: CategoryData) {
+fun Section(
+    category: CategoryData,
+    onNavigateToProductList: (String) -> Unit
+) {
     Column(
 
     ) {
@@ -126,7 +137,7 @@ fun Section(category: CategoryData) {
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(category.items) { item ->
-                ItemCard(item, {})
+                ItemCard(item) { onNavigateToProductList(item.name) }
             }
         }
     }
